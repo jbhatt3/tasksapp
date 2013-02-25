@@ -53,28 +53,17 @@ class FormHandler(BaseHandler):
     def validateFields(self):
         validation = {'valid': True}
         have_error = False
-        username = self.request.get('fields.username')
-        password = self.request.get('fields.password')
-        verify = self.request.get('fields.verifypass')
         email = self.request.get('fields.email')
-
-        fields = {'username' : username,
-                      'email' : email}
+        password = self.request.get('fields.password')      
+        fields = {'email' : email}
         errors = {}              
                       
-        if not utils.valid_username(username):
-            errors['error_username'] = "That's not a valid username."
+        if not utils.valid_email(email):
+            errors['error_email'] = "That's not a valid email."
             have_error = True
 
         if not utils.valid_password(password):
             errors['error_password'] = "That wasn't a valid password."
-            have_error = True
-        elif password != verify:
-            errors['error_verify'] = "Your passwords didn't match."
-            have_error = True
-
-        if not utils.valid_email(email):
-            errrors['error_email'] = "That's not a valid email."
             have_error = True
 
         if have_error:
@@ -92,12 +81,17 @@ class FrontPageHandler(BaseHandler):
 
 class LoginHandler(FormHandler):
     def get(self):
-        self.render("/templates/login.html")
+        errors = {'error_username':'this is another error'}
+        fields= {}
+        template_values = self.createTemplate_values(errors,fields)
+        self.render("/templates/login.html",**template_values)
     def post(self):
         validation = self.validateFields()
         if validation['valid'] == False:
             template_values = self.createTemplate_values(validation['errors'], validation['fields'])
             self.render("/templates/login.html", **template_values)
+        else:
+            self.write("field validation is working")
 
 
 class RegisterHandler(FormHandler):
