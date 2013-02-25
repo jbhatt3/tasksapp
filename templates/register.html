@@ -96,10 +96,10 @@
 
       <form class="form-signin" action="/register" method = "post">
         <h2 class="form-signin-heading">Register Now!</h2>
-        <input type="text" class="input-block-level" placeholder="username" name="username" value="{{username}}">
-        <input type="password" class="input-block-level" placeholder="password" name="password" value="{{password}}">
-        <input type="text" class="input-block-level" placeholder="verify password" name="verify_pass" value="{{verify_pass}}">
-        <input type="text" class="input-block-level" placeholder="email address" name="email" value="{{email}}">
+        <input type="text" class="input-block-level" placeholder="username" name="username" value="{{fields.username}}">
+        <input type="password" class="input-block-level" placeholder="password" name="password" value="{{fields.password}}">
+        <input type="text" class="input-block-level" placeholder="verify password" name="verify_pass" value="{{fields.verifypass}}">
+        <input type="text" class="input-block-level" placeholder="email address" name="email" value="{{fields.email}}">
         {%if errors:%}
           {%for error in errors%}
             <div class="alert alert-error input-block-level">
