@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+  <link type="text/css" rel="stylesheet" href="../static/stylesheets/main.css" />
+	</head>
+	<body>
+		<div id = "wrapper">
+			<div class = "top-banner">
+				<div class = "logo"> <h3>Logo will go here</h3> </div>
+				<nav class = "banner-nav">
+					<ul>
+						<li><a href="">Home</a></li>
+						<li><a href="">About</a></li>
+						<li><a href="">Contact us</a></li>
+					</ul>
+				</nav>
+				<div class = "logForm banner-right">
+					<form  method ="post" class = "logForm">
+						<label for = "username">Username:</label> 
+						<input name = "username" type = "text" value = "{{username}}" class = "logForm"> 
+						<label for = "password">Password:</label>
+						<input name = "password" type ="password" value = "{{password}}" class = "logForm">
+						<input name = "login" type = "submit" value = "login">
+					</form>	
+				</div>
+			</div>
+			<div class = "main">
+				<div class = "regForm">
+					<header> <h2> Registration form:</h2> </header>
+					<form method = "post" class = "regForm">
+						<label for = "username" class = "regForm">Username:</label> 
+						<input name = "username" type = "text" value = "{{username}}"class = "regForm" > 
+						<label for = "password" class = "regForm">Password:</label>
+						<input name = "password" type ="password" value = "{{password}}" class = "regForm">
+						<label for = "passverify" class = "regForm">Verify Password:</label>
+						<input name = "passverify" type ="password" value = "{{passverify}}" class = "regForm">
+						<label for = "email" class = "regForm">Email:</label>
+						<input name = "email" type ="password" value = "{{email}}" class = "regForm">
+						<label for = "emailverify" class = "regForm">Verify Email</label>
+						<input name = "emailverify" type ="password" value = "{{emailverify}}" class = "regForm">
+						<input name = "register" type = "submit" value = "Register Now">
+
+					</form>
+				</div>
+				<div class = "main-content">
+					<header> <h1>Welcome to my Tasks App!</h1> </header>
+					<p> This would be the front page of my tasks app. Ignore the colors right now. </p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
