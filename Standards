@@ -1,0 +1,14 @@
+Standards:
+
+Naming Conventions:
+When naming variables, functions and Handlers, use camelCase
+When naming Handlers, use Capital first letters(always end in Handler)
+when working with equals signs, use spaces
+With CSS classes...Bootstrap uses dashes. 
+With custom css, use camelCase
+With mappings/dictionaries, use no spaces
+
+
+HTML templating:
+when working with errors/fields/ other mappings, do not use ['key':value] notation.
+Instead, use '.' notation. Ex: fields.username when fields is a mapping.

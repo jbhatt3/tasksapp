@@ -45,34 +45,40 @@ class BaseHandler(webapp2.RequestHandler):
         self.write(self.render_str(template, **kw))
 
 class FormHandler(BaseHandler):
+    #combines mapping of errors and fields into mapping called template_values. 
+    #template_values is returned to be used as value of all fields for rendering
     def createTemplate_values(self,errors,fields):
         template_values= {'fields':fields,
                          'errors':errors}
         return template_values
 
+#Called by post method of form. Checks if input submitted in fields is proper and applicable
+#depends on validation functions in utils.py. If validation conditions needed to be adjusted, must edit validation functions
+#in utils.py
     def validateFields(self):
         validation = {'valid': True}
-        have_error = False
         email = self.request.get('fields.email')
         password = self.request.get('fields.password')      
         fields = {'email' : email}
-        errors = {}              
+        errors = {}
+        validation['fields']=fields              
                       
         if not utils.valid_email(email):
             errors['error_email'] = "That's not a valid email."
-            have_error = True
+            validation['valid'] = False
+            validation['errors'] = errors
+            return validation    
+            
 
         if not utils.valid_password(password):
             errors['error_password'] = "That wasn't a valid password."
-            have_error = True
-
-        if have_error:
             validation['valid'] = False
             validation['errors'] = errors
-            validation['fields'] = fields
-            return validation
-        else:
             return validation    
+
+
+        validation['errors'] = errors
+        return validation    
              
 
 class FrontPageHandler(BaseHandler):
@@ -80,11 +86,39 @@ class FrontPageHandler(BaseHandler):
         self.render("/templates/index.html")
 
 class LoginHandler(FormHandler):
+    #ovewriting default validation method to check if login information is an actual account
+    #still need to check database on this.
+    def validateFields(self):
+        validation = {'valid': True}
+        email = self.request.get('fields.email')
+        password = self.request.get('fields.password')      
+        fields = {'email' : email}
+        errors = {}
+        validation['fields']=fields              
+                      
+        if not utils.valid_email(email):
+            errors['error_email'] = "That's not a valid email."
+            validation['valid'] = False
+            validation['errors'] = errors
+            return validation    
+            
+
+        if not utils.valid_password(password):
+            errors['error_password'] = "That wasn't a valid password."
+            validation['valid'] = False
+            validation['errors'] = errors
+            return validation    
+
+
+        validation['errors'] = errors
+        return validation 
+
     def get(self):
-        errors = {'error_username':'this is another error'}
+        errors = {}
         fields= {}
         template_values = self.createTemplate_values(errors,fields)
         self.render("/templates/login.html",**template_values)
+
     def post(self):
         validation = self.validateFields()
         if validation['valid'] == False:
@@ -95,72 +129,69 @@ class LoginHandler(FormHandler):
 
 
 class RegisterHandler(FormHandler):
+    
+
+    #Overrites validataeFields method in Form handler to check for username and verify password fields aswell.
+    def validateFields(self):
+        validation = {'valid': True}
+        username = self.request.get('fields.username')
+        password = self.request.get('fields.password')
+        verifyPass = self.request.get('fields.verifyPass')
+        email = self.request.get('fields.email')      
+        fields = {'username':username,
+                  'password':password,
+                  'verifyPass':verifyPass,
+                  'email':email}
+        errors = {}
+        validation['fields']=fields              
+        
+        if not utils.valid_username(username):
+            validation['valid'] = False
+            errors['error_username'] = "That's not a valid username"
+            validation['errors'] = errors
+            return validation  
+    
+        if not utils.valid_password(password):
+            validation['valid'] = False
+            errors['error_password'] = "That wasn't a valid password."
+            validation['errors'] = errors
+            return validation  
+
+        elif verifyPass != password:
+            validation['valid'] = False
+            errors['error_verify'] = "Passwords do not match"
+            validation['errors'] = errors
+            return validation  
+
+        if not utils.valid_email(email):
+            validation['valid'] = False
+            errors['error_email'] = "That's not a valid email."
+            validation['errors'] = errors
+            return validation  
+
+            
+        validation['errors'] = errors
+        return validation    
+
     def get(self):
-        errors = {'error_username':'this is another error'}
-        fields= {}
+        errors = {}
+        fields = {}
         template_values = self.createTemplate_values(errors,fields)
+        self.render("/templates/register.html",**template_values)
 
-        self.render("/templates/register.html", **template_values)
     def post(self):
-        username=self.request.get('username')
-        password = self.request.get('passoword')
-        verify_pass=self.request.get('verify_pass')
-        email = self.request.get('email')
-        newUser = user.User(username=username, password=password, email=email)
-        newUser.put()
-        self.write("Welcome %s" %username)
 
-
-# template_values= {'username':"",
-#                          'password':"",
-#                          'verifypass':"",
-#                          'email':"",
-#                          'error_username':"",
-#                          'error_password':"",
-#                          'error_verify':"",
-#                          'error_email':""}
-#         self.write_self(template_values)
-
-#     def post(self):
-#         have_error = False
-#         username = self.request.get('username')
-#         password = self.request.get('password')
-#         verify = self.request.get('verifypass')
-#         email = self.request.get('email')
-
-#         params = {'username' : username,
-#                       'email' : email,
-#                       'error_username':"",
-#                       'error_password' : "",
-#                       'error_verify' : "",
-#                       'error_email' : ""}
-#         if not valid_username(username):
-#             params['error_username'] = "That's not a valid username."
-#             have_error = True
-
-#         if not valid_password(password):
-#             params['error_password'] = "That wasn't a valid password."
-#             have_error = True
-#         elif password != verify:
-#             params['error_verify'] = "Your passwords didn't match."
-#             have_error = True
-
-#         if not valid_email(email):
-#             params['error_email'] = "That's not a valid email."
-#             have_error = True
-
-#         if have_error:
-#             self.write_self(params)
-#         else:
-#           user_id_hash = self.register_user(username,password,email)
-#           if user_id_hash:
-#             self.response.headers.add_header("Set-Cookie", "user_id = %s; Path = /" %user_id_hash)
-#             self.redirect('/welcome')
-#           else:
-#             params['error_username'] = "This User already exists"
-#             self.write_self(params)
-
-
+        validation = self.validateFields()
+        if validation['valid'] == False:
+            template_values = self.createTemplate_values(validation['errors'], validation['fields'])
+            self.render("/templates/register.html",**template_values)
+        else:
+            username = validation['fields']['username']
+            password = validation['fields']['password']
+            email = validation['fields']['email']
+            newUser = user.User(username=username, password=password, email=email)
+            newUser.put()
+            self.write("Welcome %s" %username)
 
 
 
