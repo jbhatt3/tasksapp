@@ -57,83 +57,6 @@ class FormHandler(BaseHandler):
 #in utils.py
     def validateFields(self):
         validation = {'valid': True}
-        email = self.request.get('fields.email')
-        password = self.request.get('fields.password')      
-        fields = {'email' : email}
-        errors = {}
-        validation['fields']=fields              
-                      
-        if not utils.valid_email(email):
-            errors['error_email'] = "That's not a valid email."
-            validation['valid'] = False
-            validation['errors'] = errors
-            return validation    
-            
-
-        if not utils.valid_password(password):
-            errors['error_password'] = "That wasn't a valid password."
-            validation['valid'] = False
-            validation['errors'] = errors
-            return validation    
-
-
-        validation['errors'] = errors
-        return validation    
-             
-
-class FrontPageHandler(BaseHandler):
-    def get(self):
-        self.render("/templates/index.html")
-
-class LoginHandler(FormHandler):
-    #ovewriting default validation method to check if login information is an actual account
-    #still need to check database on this.
-    def validateFields(self):
-        validation = {'valid': True}
-        email = self.request.get('fields.email')
-        password = self.request.get('fields.password')      
-        fields = {'email' : email}
-        errors = {}
-        validation['fields']=fields              
-                      
-        if not utils.valid_email(email):
-            errors['error_email'] = "That's not a valid email."
-            validation['valid'] = False
-            validation['errors'] = errors
-            return validation    
-            
-
-        if not utils.valid_password(password):
-            errors['error_password'] = "That wasn't a valid password."
-            validation['valid'] = False
-            validation['errors'] = errors
-            return validation    
-
-
-        validation['errors'] = errors
-        return validation 
-
-    def get(self):
-        errors = {}
-        fields= {}
-        template_values = self.createTemplate_values(errors,fields)
-        self.render("/templates/login.html",**template_values)
-
-    def post(self):
-        validation = self.validateFields()
-        if validation['valid'] == False:
-            template_values = self.createTemplate_values(validation['errors'], validation['fields'])
-            self.render("/templates/login.html", **template_values)
-        else:
-            self.write("field validation is working")
-
-
-class RegisterHandler(FormHandler):
-    
-
-    #Overrites validataeFields method in Form handler to check for username and verify password fields aswell.
-    def validateFields(self):
-        validation = {'valid': True}
         username = self.request.get('fields.username')
         password = self.request.get('fields.password')
         verifyPass = self.request.get('fields.verifyPass')
@@ -171,7 +94,142 @@ class RegisterHandler(FormHandler):
 
             
         validation['errors'] = errors
-        return validation    
+        return validation  
+
+
+    #Check Users function is the generic database confirmation that the fields provived correspond to a certain user.
+    #Supposed to be called by the validate fields function and accepts the 'fields' mapping variable to check the database.
+    #Returns the mapping 'userSearch' contain 'User' account Model object for password verification 
+    def validateUser(self,fields,password):
+        userSearch = {'userFound':False}
+        email = fields['email']
+        password = password
+        allUsers = user.User.all()
+        matchingUsers = allUsers.filter("email =", email)
+        matchingUsers = matchingUsers.filter("password =", password)
+        if matchingUsers.count() == 1:
+            userSearch = {'userFound':True,
+                          'user':matchingUsers.get()}
+        return userSearch        
+
+class FrontPageHandler(BaseHandler):
+    def get(self):
+        self.render("/templates/index.html")
+
+class LoginHandler(FormHandler):
+    #ovewriting default validation method to check if login information is an actual account
+    #still need to check database on this.
+    def validateFields(self):
+        validation = {'valid': True}
+        email = self.request.get('fields.email')
+        password = self.request.get('fields.password')      
+        fields = {'email' : email}
+        errors = {}
+        validation['fields'] = fields              
+                      
+        if not utils.valid_email(email):
+            errors['error_email'] = "That's not a valid email."
+            validation['valid'] = False
+            validation['errors'] = errors
+            return validation    
+            
+
+        if not utils.valid_password(password):
+            errors['error_password'] = "That wasn't a valid password."
+            validation['valid'] = False
+            validation['errors'] = errors
+            return validation    
+
+        user = self.validateUser(fields,password)
+        if not user['userFound']:
+            errors['error_db'] = "Invalid email/password"
+            validation['valid'] = False
+            validation['errors'] = errors
+            return validation
+
+
+        validation['errors'] = errors
+        return validation 
+
+    def get(self):
+        errors = {}
+        fields= {}
+        template_values = self.createTemplate_values(errors,fields)
+        self.render("/templates/login.html",**template_values)
+
+    def post(self):
+        validation = self.validateFields()
+        if validation['valid'] == False:
+            template_values = self.createTemplate_values(validation['errors'], validation['fields'])
+            self.render("/templates/login.html", **template_values)
+        else:
+            self.write("field validation is working")
+
+
+class RegisterHandler(FormHandler):
+
+#Ovewrites validateUser in form handler to check if email or username is currently used already in the database
+#if either email or username are taken,returns a mapping with user found true and the which match was made.
+    def validateUser(self,fields):
+        email = fields['email']
+        allUsers = user.User.all()
+        matchingUsers = allUsers.filter("email =", email)
+        if matchingUsers.count() == 1:
+            userSearch = {'userFound':True,
+                          'user':matchingUsers.get()}
+        else:
+            userSearch = {'userFound':False}
+        return userSearch        
+
+#Ovewriting the validateFields method of formhandler to check database if this user is already registered
+    def validateFields(self):
+        validation = {'valid': True}
+        username = self.request.get('fields.username')
+        password = self.request.get('fields.password')
+        verifyPass = self.request.get('fields.verifyPass')
+        email = self.request.get('fields.email')      
+        fields = {'username':username,
+                  'password':password,
+                  'verifyPass':verifyPass,
+                  'email':email}
+        errors = {}
+        validation['fields']=fields              
+        user  = self.validateUser(fields)
+        if  user['userFound']:
+            validation['valid'] = False
+            errors['error_email'] = "This email is already registered"
+            validation['errors'] = errors
+            return validation
+
+
+        if not utils.valid_email(email):
+            validation['valid'] = False
+            errors['error_email'] = "That's not a valid email."
+            validation['errors'] = errors
+            return validation  
+
+
+        if not utils.valid_username(username):
+            validation['valid'] = False
+            errors['error_username'] = "That's not a valid username"
+            validation['errors'] = errors
+            return validation  
+    
+        if not utils.valid_password(password):
+            validation['valid'] = False
+            errors['error_password'] = "That wasn't a valid password."
+            validation['errors'] = errors
+            return validation  
+
+        elif verifyPass != password:
+            validation['valid'] = False
+            errors['error_verify'] = "Passwords do not match"
+            validation['errors'] = errors
+            return validation  
+
+            
+        validation['errors'] = errors
+        return validation  
 
     def get(self):
         errors = {}
