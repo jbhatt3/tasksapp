@@ -5,7 +5,11 @@
 		[
 			[
 				"validate",
-				"validateFields"
+				"validatePassword"
+			],
+			[
+				"hash",
+				"hashPass"
 			],
 			[
 				"err",
@@ -184,13 +188,10 @@
 	"buffers":
 	[
 		{
-			"contents": "#!/usr/bin/env python\n#\n# Copyright 2007 Google Inc.\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this file except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#     http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nimport webapp2\nimport jinja2\nimport os\nimport re\nimport user\nimport hashlib\nimport hmac\nimport string\nimport utils\n#Initializes templating features of Jinja2 framework\ntemplate_dir = os.path.join(os.path.dirname(__file__))\njinja_environment = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),\n                               autoescape = True)\n\n\n#Base handler contains basic templating functions \nclass BaseHandler(webapp2.RequestHandler):\n    # Writes string  \n    def write(self, *a, **kw):\n        self.response.out.write(*a, **kw)\n        \n    #returns template from string path with string substitution parameters in mapping called params\n    def render_str(self,template, **params):\n        template = jinja_environment.get_template(template)\n        return template.render(params)\n\n    #takes string template path and mapping of template paramters and renders them\n    def render(self, template, **kw):\n        self.write(self.render_str(template, **kw))\n\nclass FormHandler(BaseHandler):\n    #combines mapping of errors and fields into mapping called template_values. \n    #template_values is returned to be used as value of all fields for rendering\n    def createTemplate_values(self,errors,fields):\n        template_values= {'fields':fields,\n                         'errors':errors}\n        return template_values\n\n#Called by post method of form. Checks if input submitted in fields is proper and applicable\n#depends on validation functions in utils.py. If validation conditions needed to be adjusted, must edit validation functions\n#in utils.py\n    def validateFields(self):\n        validation = {'valid': True}\n        username = self.request.get('fields.username')\n        password = self.request.get('fields.password')\n        verifyPass = self.request.get('fields.verifyPass')\n        email = self.request.get('fields.email')      \n        fields = {'username':username,\n                  'password':password,\n                  'verifyPass':verifyPass,\n                  'email':email}\n        errors = {}\n        validation['fields']=fields              \n        \n        if not utils.valid_username(username):\n            validation['valid'] = False\n            errors['error_username'] = \"That's not a valid username\"\n            validation['errors'] = errors\n            return validation  \n    \n        if not utils.valid_password(password):\n            validation['valid'] = False\n            errors['error_password'] = \"That wasn't a valid password.\"\n            validation['errors'] = errors\n            return validation  \n\n        elif verifyPass != password:\n            validation['valid'] = False\n            errors['error_verify'] = \"Passwords do not match\"\n            validation['errors'] = errors\n            return validation  \n\n        if not utils.valid_email(email):\n            validation['valid'] = False\n            errors['error_email'] = \"That's not a valid email.\"\n            validation['errors'] = errors\n            return validation  \n\n            \n        validation['errors'] = errors\n        return validation  \n\n\n    #Check Users function is the generic database confirmation that the fields provived correspond to a certain user.\n    #Supposed to be called by the validate fields function and accepts the 'fields' mapping variable to check the database.\n    #Returns the mapping 'userSearch' contain 'User' account Model object for password verification \n    def validateUser(self,fields,password):\n        userSearch = {'userFound':False}\n        email = fields['email']\n        password = password\n        allUsers = user.User.all()\n        matchingUsers = allUsers.filter(\"email =\", email)\n        matchingUsers = matchingUsers.filter(\"password =\", password)\n        if matchingUsers.count() == 1:\n            userSearch = {'userFound':True,\n                          'user':matchingUsers.get()}\n        return userSearch        \n\nclass FrontPageHandler(BaseHandler):\n    def get(self):\n        self.render(\"/templates/index.html\")\n\nclass LoginHandler(FormHandler):\n    #ovewriting default validation method to check if login information is an actual account\n    #still need to check database on this.\n    def validateFields(self):\n        validation = {'valid': True}\n        email = self.request.get('fields.email')\n        password = self.request.get('fields.password')      \n        fields = {'email' : email}\n        errors = {}\n        validation['fields'] = fields              \n                      \n        if not utils.valid_email(email):\n            errors['error_email'] = \"That's not a valid email.\"\n            validation['valid'] = False\n            validation['errors'] = errors\n            return validation    \n            \n\n        if not utils.valid_password(password):\n            errors['error_password'] = \"That wasn't a valid password.\"\n            validation['valid'] = False\n            validation['errors'] = errors\n            return validation    \n\n        user = self.validateUser(fields,password)\n        if not user['userFound']:\n            errors['error_db'] = \"Invalid email/password\"\n            validation['valid'] = False\n            validation['errors'] = errors\n            return validation\n\n\n        validation['errors'] = errors\n        return validation \n\n    def get(self):\n        errors = {}\n        fields= {}\n        template_values = self.createTemplate_values(errors,fields)\n        self.render(\"/templates/login.html\",**template_values)\n\n    def post(self):\n        validation = self.validateFields()\n        if validation['valid'] == False:\n            template_values = self.createTemplate_values(validation['errors'], validation['fields'])\n            self.render(\"/templates/login.html\", **template_values)\n        else:\n            self.write(\"field validation is working\")\n\n\nclass RegisterHandler(FormHandler):\n\n#Ovewrites validateUser in form handler to check if email or username is currently used already in the database\n#if either email or username are taken,returns a mapping with user found true and the which match was made.\n    def validateUser(self,fields):\n        email = fields['email']\n        allUsers = user.User.all()\n        matchingUsers = allUsers.filter(\"email =\", email)\n        if matchingUsers.count() == 1:\n            userSearch = {'userFound':True,\n                          'user':matchingUsers.get()}\n        else:\n            userSearch = {'userFound':False}\n        return userSearch        \n\n#Ovewriting the validateFields method of formhandler to check database if this user is already registered\n    def validateFields(self):\n        validation = {'valid': True}\n        username = self.request.get('fields.username')\n        password = self.request.get('fields.password')\n        verifyPass = self.request.get('fields.verifyPass')\n        email = self.request.get('fields.email')      \n        fields = {'username':username,\n                  'password':password,\n                  'verifyPass':verifyPass,\n                  'email':email}\n        errors = {}\n        validation['fields']=fields              \n        user  = self.validateUser(fields)\n        if  user['userFound']:\n            validation['valid'] = False\n            errors['error_email'] = \"This email is already registered\"\n            validation['errors'] = errors\n            return validation\n\n\n        if not utils.valid_email(email):\n            validation['valid'] = False\n            errors['error_email'] = \"That's not a valid email.\"\n            validation['errors'] = errors\n            return validation  \n\n\n        if not utils.valid_username(username):\n            validation['valid'] = False\n            errors['error_username'] = \"That's not a valid username\"\n            validation['errors'] = errors\n            return validation  \n    \n        if not utils.valid_password(password):\n            validation['valid'] = False\n            errors['error_password'] = \"That wasn't a valid password.\"\n            validation['errors'] = errors\n            return validation  \n\n        elif verifyPass != password:\n            validation['valid'] = False\n            errors['error_verify'] = \"Passwords do not match\"\n            validation['errors'] = errors\n            return validation  \n\n            \n        validation['errors'] = errors\n        return validation  \n\n    def get(self):\n        errors = {}\n        fields = {}\n        template_values = self.createTemplate_values(errors,fields)\n        self.render(\"/templates/register.html\",**template_values)\n\n    def post(self):\n\n        validation = self.validateFields()\n        if validation['valid'] == False:\n            template_values = self.createTemplate_values(validation['errors'], validation['fields'])\n            self.render(\"/templates/register.html\",**template_values)\n        else:\n            username = validation['fields']['username']\n            password = validation['fields']['password']\n            email = validation['fields']['email']\n            newUser = user.User(username=username, password=password, email=email)\n            newUser.put()\n            self.write(\"Welcome %s\" %username)\n\n\n\napp = webapp2.WSGIApplication([('/', FrontPageHandler),\n                                ('/login', LoginHandler),\n                                ('/register', RegisterHandler)\n                                ], debug=True)\n\n",
 			"file": "main.py",
-			"file_size": 9945,
-			"file_write_time": 130064948243004291,
 			"settings":
 			{
-				"buffer_size": 9945,
+				"buffer_size": 10456,
 				"line_ending": "Unix"
 			}
 		},
@@ -198,7 +199,7 @@
 			"file": "utils.py",
 			"settings":
 			{
-				"buffer_size": 869,
+				"buffer_size": 944,
 				"line_ending": "Windows"
 			}
 		},
@@ -215,6 +216,14 @@
 			"settings":
 			{
 				"buffer_size": 5565,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "user.py",
+			"settings":
+			{
+				"buffer_size": 153,
 				"line_ending": "Windows"
 			}
 		}
@@ -243,6 +252,7 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Janyu/Documents/tasksapp/main.py",
 		"/C/Users/Janyu/Documents/tasksapp/Standards",
 		"/C/Users/Janyu/Documents/tasksapp/user.py",
 		"/C/Users/Janyu/Documents/tasksapp/templates/login.html",
@@ -273,7 +283,6 @@
 		"/C/Users/Janyu/Desktop/twitter-bootstrap-8c7f9c6/less/mixins.less",
 		"/C/Users/Janyu/Desktop/twitter-bootstrap-8c7f9c6/less/bootstrap.less",
 		"/C/Users/Janyu/Desktop/twitter-bootstrap-8c7f9c6/less/variables.less",
-		"/C/Users/Janyu/Documents/tasksapp/main.py",
 		"/C/Users/Janyu/Documents/tasksapp/ma",
 		"/C/Users/Janyu/todolist_capstone/tutorial/helloworld/jb-practice_project.sublime-project",
 		"/C/Users/Janyu/todolist_capstone/tutorial/helloworld/templates/helloworld.html",
@@ -370,15 +379,15 @@
 					"file": "main.py",
 					"settings":
 					{
-						"buffer_size": 9945,
+						"buffer_size": 10456,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								9718,
-								9718
+								4897,
+								4897
 							]
 						],
 						"settings":
@@ -388,7 +397,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3210.0,
+						"translation.y": 1633.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -398,15 +407,15 @@
 					"file": "utils.py",
 					"settings":
 					{
-						"buffer_size": 869,
+						"buffer_size": 944,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								364,
-								364
+								83,
+								83
 							]
 						],
 						"settings":
@@ -445,7 +454,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1950.0,
+						"translation.y": 510.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -474,6 +483,32 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 137.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "user.py",
+					"settings":
+					{
+						"buffer_size": 153,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								133,
+								133
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -523,6 +558,14 @@
 		"selected_items":
 		[
 			[
+				"main",
+				"main.py"
+			],
+			[
+				"user",
+				"user.py"
+			],
+			[
 				"stand",
 				"Standards"
 			],
@@ -545,10 +588,6 @@
 			[
 				"boot",
 				"css/bootstrap-responsive.css"
-			],
-			[
-				"main",
-				"main.py"
 			],
 			[
 				"ma",

@@ -52,7 +52,7 @@ class FormHandler(BaseHandler):
 
     #this method takes a password and hashes it using hashing functions in the utils file.
     def hashPass(self, password):
-        hashedPass = utils.makeHash(password,salt)
+        hashedPass = utils.make_hash(password)
         return hashedPass
 
 
@@ -257,16 +257,17 @@ class RegisterHandler(FormHandler):
             self.render("/templates/register.html",**template_values)
         else:
             self.registerUser(validation['fields'])
-            self.write("Welcome %s" %username)
+            self.write("Welcome %s" %(validation['fields']['username']))
 
 
+    #def registerUser(self,fields):
     def registerUser(self,fields):
-            email = validation['fields']['email']
-            username = fields['username']
-            password = fields['password']
-            passHashed = self.hashPass(password)
-            newUser = user.User(email=email, username=username, passHashed=passHashed)
-            newUser.put()
+        email = fields['email']
+        username = fields['username']
+        password = fields['password']
+        passHashed = self.hashPass(password)
+        newUser = user.User(email=email, username=username, passHashed=passHashed)
+        newUser.put()
 
 
 
