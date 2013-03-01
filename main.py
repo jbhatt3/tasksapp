@@ -45,6 +45,17 @@ class BaseHandler(webapp2.RequestHandler):
         self.write(self.render_str(template, **kw))
 
 class FormHandler(BaseHandler):
+
+    def validatePassword(self, password, hashedPass):
+        passValid = utils.valid_hash(password,hashedPass)
+        return passValid
+
+    #this method takes a password and hashes it using hashing functions in the utils file.
+    def hashPass(self, password):
+        hashedPass = utils.makeHash(password,salt)
+        return hashedPass
+
+
     #combines mapping of errors and fields into mapping called template_values. 
     #template_values is returned to be used as value of all fields for rendering
     def createTemplate_values(self,errors,fields):
@@ -106,8 +117,9 @@ class FormHandler(BaseHandler):
         password = password
         allUsers = user.User.all()
         matchingUsers = allUsers.filter("email =", email)
-        matchingUsers = matchingUsers.filter("password =", password)
         if matchingUsers.count() == 1:
+            passHashed = matchingUsers.get().passHashed
+            passValid = self.validatePassword(password,passHashed)
             userSearch = {'userFound':True,
                           'user':matchingUsers.get()}
         return userSearch        
@@ -244,12 +256,17 @@ class RegisterHandler(FormHandler):
             template_values = self.createTemplate_values(validation['errors'], validation['fields'])
             self.render("/templates/register.html",**template_values)
         else:
-            username = validation['fields']['username']
-            password = validation['fields']['password']
-            email = validation['fields']['email']
-            newUser = user.User(username=username, password=password, email=email)
-            newUser.put()
+            self.registerUser(validation['fields'])
             self.write("Welcome %s" %username)
+
+
+    def registerUser(self,fields):
+            email = validation['fields']['email']
+            username = fields['username']
+            password = fields['password']
+            passHashed = self.hashPass(password)
+            newUser = user.User(email=email, username=username, passHashed=passHashed)
+            newUser.put()
 
 
 

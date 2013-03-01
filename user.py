@@ -1,6 +1,6 @@
 from google.appengine.ext import db
 
 class User(db.Model):
+	email=db.StringProperty()
     username=db.StringProperty()
-    password=db.StringProperty()
-    email=db.StringProperty()
+    passHashed=db.StringProperty()
