@@ -28,6 +28,8 @@ def make_salt():
 def make_hash(pw,salt=None):
   if not salt:
     salt = make_salt()
+  else:
+    salt = str(salt)
   tohash = salt + SECRET + str(pw)  
   #h = hashlib.sha256(tohash).hexdigest()
   h= hmac.new(str(salt+SECRET),str(pw),hashlib.sha256).hexdigest()
