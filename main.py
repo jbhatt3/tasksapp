@@ -288,8 +288,7 @@ class RegisterHandler(FormHandler):
         else:
             userId = self.registerUser(validation['fields'])
             self.createSessionCookie(userId)
-            self.write("Welcome %s" %(validation['fields']['username']))
-
+            self.redirect('/homepage')
 
     #def registerUser(self,fields):
     def registerUser(self,fields):
@@ -309,8 +308,6 @@ class HomePageHandler(BaseHandler):
 
     def get(self):
         self.renderStart("/templates/homepage.html")
-        self.write()
-
 app = webapp2.WSGIApplication([('/', FrontPageHandler),
                                 ('/login', LoginHandler),
                                 ('/register', RegisterHandler),
