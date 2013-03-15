@@ -151,7 +151,8 @@ class FormHandler(BaseHandler):
             passHashed = matchingUsers.get().passHashed
             passValid = self.validatePassword(password,passHashed)
             userSearch = {'userFound':True,
-                          'user':matchingUsers.get()}
+                          'user':matchingUsers.get(),
+                          'userId': matchingUsers.get().key().id()}
         return userSearch
 
 
@@ -195,6 +196,7 @@ class LoginHandler(FormHandler):
 
 
         validation['errors'] = errors
+        validation['fields']['userId'] = user['userId']
         return validation 
 
     def get(self):
@@ -207,8 +209,16 @@ class LoginHandler(FormHandler):
             template_values = self.createTemplate_values(validation['errors'], validation['fields'])
             self.render("/templates/login.html", **template_values)
         else:
-            validation['valid']['fields']['userame']
-            self.write("field validation is working")
+            self.createSessionCookie(validation['fields']['userId'])
+            self.redirect('/')
+
+class LogoutHandler(FormHandler):
+
+    def get(self):
+        self.response.headers.add_header("Set-Cookie", "userId =; Path = /")
+        self.redirect('/')
+
+
 
 
 class RegisterHandler(FormHandler):
@@ -307,9 +317,11 @@ class HomePageHandler(BaseHandler):
         self.render("/templates/homepage.html")
 
     def get(self):
+        fields = {}
         self.renderStart("/templates/homepage.html")
 app = webapp2.WSGIApplication([('/', FrontPageHandler),
                                 ('/login', LoginHandler),
+                                ('/logout',LogoutHandler),
                                 ('/register', RegisterHandler),
                                 ('/homepage',HomePageHandler)
                                 ], debug=True)
