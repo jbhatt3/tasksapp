@@ -62,7 +62,7 @@ class BaseHandler(webapp2.RequestHandler):
     def validateSessionCookie(self,userIdHash):
         userId = userIdHash.split("|")[0]
         hashed = userIdHash.split("|")[1]
-        if(utils.valid_hash(hashed,userIdHash)):
+        if(utils.valid_hash(userId,userIdHash)):
             return userId
         else:
             return False    
@@ -71,15 +71,16 @@ class BaseHandler(webapp2.RequestHandler):
     def renderStart(self,template, errors = {}, fields = {}):
         userIdCookie_str = self.request.cookies.get("userId")
         if userIdCookie_str:
-            if not self.validateSessionCookie(userIdCookie_str):
+            if self.validateSessionCookie(userIdCookie_str):
                 self.redirect('/homepage')
-
-                
         template_values = self.createTemplate_values(errors,fields)
         self.render(template,**template_values)
 
-
-
+    def getUserInfo(self):
+        userIdCookie_str = self.request.cookies.get("userId")
+        if userIdCookie_str:
+            if not self.validateSessionCookie(userIdCookie_str):
+                return
 
 class FormHandler(BaseHandler):
 
@@ -317,6 +318,7 @@ class HomePageHandler(BaseHandler):
         self.render("/templates/homepage.html")
 
     def get(self):
+
         fields = {}
         self.renderStart("/templates/homepage.html")
 app = webapp2.WSGIApplication([('/', FrontPageHandler),
