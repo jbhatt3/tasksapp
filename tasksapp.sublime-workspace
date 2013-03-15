@@ -223,7 +223,7 @@
 			"file": "main.py",
 			"settings":
 			{
-				"buffer_size": 11874,
+				"buffer_size": 11839,
 				"line_ending": "Unix"
 			}
 		},
@@ -420,7 +420,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -428,15 +428,15 @@
 					"file": "main.py",
 					"settings":
 					{
-						"buffer_size": 11874,
+						"buffer_size": 11839,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								11585,
-								11585
+								10603,
+								10603
 							]
 						],
 						"settings":
