@@ -47,7 +47,6 @@ class BaseHandler(webapp2.RequestHandler):
     #combines mapping of errors and fields into mapping called template_values. 
     #template_values is returned to be used as value of all fields for rendering
     def createTemplate_values(self,errors,fields):
-        self.write("is called")
         template_values= {'fields':fields,
                          'errors':errors}
         return template_values    
@@ -319,14 +318,14 @@ class RegisterHandler(FormHandler):
 
 
 class HomePageHandler(BaseHandler):
-    def renderStart(self,template_values, errors = {}, fields = {}):
-        self.render("/templates/homepage.html")
-
+    def renderStart(self,template, errors = {}, fields = {}):
+        template_values = self.createTemplate_values(errors,fields)
+        self.render(template,**template_values)
     def get(self):
         user = self.getUserFromCookie()
         fields = {"username":user.username
                   }
-        self.render("/templates/homepage.html", fields= fields)
+        self.renderStart("/templates/homepage.html",fields=fields)
 app = webapp2.WSGIApplication([('/', FrontPageHandler),
                                 ('/login', LoginHandler),
                                 ('/logout',LogoutHandler),
