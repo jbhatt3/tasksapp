@@ -76,7 +76,7 @@
                         </p>
                             <div class = "row-fluid">
                                 <span class = "span2">Task Due Date:
-                                <input type="text" class="input-block-level" placeholder="Date" name="duedate" value="">
+                                <input type="text" class="input-block-level" placeholder="Date" name="dueDate" value="">
                                 </span>
                                 <span class = "span2"> Priority: 
                                 <input type="text" class="input-block-level" placeholder="Priority" name="priority" value="">
@@ -94,14 +94,14 @@
                         {%if fields.userTasks:%}
                             {%for t in fields.userTasks.run()%}
                                 <li>
-                                    <h4><strong> Task Title: {{t.title}}</strong> Due: {{t.dateCreated.strftime("%b,%d,%Y")}}</h4>
+                                    <h4><strong> Task Title: {{t.title}}</strong> Due: {{t.dueDate}}</h4>
                                     <p> Task Description here: {{t.description}}</p>
                                     <div class = "row-fluid">
                                         <span class = "span2">Due Date: {{t.dateCreated.strftime("%b,%d,%Y")}}</span>
                                         <span class = "span2"> Priority: {{t.priority}}</span>
                                     </div>
                                     <br />
-                                    <button>Delete Task</button>
+                                    <form action = "/homepage/deltask"><input type = "submit" value ="Delete Task"></input></form>
                                 </li>
                             {%endfor%}
                         {%endif%}

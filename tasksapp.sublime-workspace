@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"task",
+				"taskQuery"
+			],
+			[
+				"tas",
+				"taskQuery"
+			],
+			[
+				"bas",
+				"BaseTaskHandler"
+			],
+			[
+				"user",
+				"user"
+			],
+			[
+				"matc",
+				"matchingUsers"
+			],
+			[
 				"h",
 				"h1	Tag"
 			],
@@ -52,10 +72,6 @@
 				"matchingUsers"
 			],
 			[
-				"user",
-				"userSearch"
-			],
-			[
 				"check",
 				"checkPassword"
 			],
@@ -94,10 +110,6 @@
 			[
 				"error",
 				"error_username"
-			],
-			[
-				"bas",
-				"BaseHandler"
 			],
 			[
 				"erro",
@@ -200,10 +212,6 @@
 				"BaseHandler"
 			],
 			[
-				"matc",
-				"matchingPass"
-			],
-			[
 				"re",
 				"RequestHandler"
 			],
@@ -223,32 +231,24 @@
 			"file": "main.py",
 			"settings":
 			{
-				"buffer_size": 11839,
+				"buffer_size": 12130,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "homepage.py",
+			"settings":
+			{
+				"buffer_size": 1948,
+				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "templates/homepage.html",
 			"settings":
 			{
-				"buffer_size": 5991,
+				"buffer_size": 7808,
 				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "docs/examples/hero.html",
-			"settings":
-			{
-				"buffer_size": 5827,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "templates/index.html",
-			"settings":
-			{
-				"buffer_size": 5722,
-				"line_ending": "Unix"
 			}
 		},
 		{
@@ -256,14 +256,6 @@
 			"settings":
 			{
 				"buffer_size": 5844,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "utils.py",
-			"settings":
-			{
-				"buffer_size": 1001,
 				"line_ending": "Windows"
 			}
 		}
@@ -292,8 +284,21 @@
 	},
 	"file_history":
 	[
-		"/C/Users/Janyu/Documents/tasksapp/templates/login.html",
+		"/C/Users/Janyu/Documents/tasksapp/task.py",
+		"/C/Users/Janyu/Documents/tasksapp/models/user.py",
+		"/C/Users/Janyu/Documents/tasksapp/user.py",
+		"/C/Users/Janyu/Documents/tasksapp/app.yaml",
+		"/C/Users/Janyu/Documents/tasksapp/models/__init__.py",
+		"/C/Users/Janyu/Documents/tasksapp/models/_init_.py",
+		"/C/Users/Janyu/Documents/tasksapp/docs/examples/hero.html",
+		"/C/Users/Janyu/Documents/tasksapp/templates/index.html",
+		"/C/Users/Janyu/Documents/tasksapp/templates/register.html",
+		"/C/Users/Janyu/Documents/tasksapp/utils.py",
+		"/C/Users/Janyu/Documents/tasksapp/css/main.css",
 		"/C/Users/Janyu/Documents/tasksapp/css/bootstrap.css",
+		"/C/Users/Janyu/Documents/tasksapp/css/bootstrap.min.css",
+		"/C/Users/Janyu/Documents/tasksapp/css/bootstrap-responsive.css",
+		"/C/Users/Janyu/Documents/tasksapp/templates/login.html",
 		"/C/Users/Janyu/Documents/tasksapp/docs/index.html",
 		"/C/Users/Janyu/Documents/Bluetooth Exchange Folder/Obsolete/Files 11'th Grade/AP Computer Science/PokerProj/PokerProj/Player.class",
 		"/C/Users/Janyu/Documents/Bluetooth Exchange Folder/Obsolete/Files 11'th Grade/AP Computer Science/PokerProj/PokerProj/Deck.java",
@@ -302,22 +307,13 @@
 		"/C/Users/Janyu/Desktop/PokerProj/Game.java",
 		"/C/Users/Janyu/Desktop/Moodies/City.java",
 		"/C/Users/Janyu/Desktop/Moodies.java",
-		"/C/Users/Janyu/Documents/tasksapp/user.py",
-		"/C/Users/Janyu/Documents/tasksapp/templates/register.html",
-		"/C/Users/Janyu/Documents/tasksapp/utils.py",
 		"/C/Users/Janyu/Documents/tasksapp/templates/Snippets/logout button.html",
 		"/C/Users/Janyu/Documents/tasksapp/main.py",
 		"/C/Users/Janyu/Documents/tasksapp/Standards",
-		"/C/Users/Janyu/Documents/tasksapp/templates/index.html",
-		"/C/Users/Janyu/Documents/tasksapp/css/main.css",
-		"/C/Users/Janyu/Documents/tasksapp/app.yaml",
-		"/C/Users/Janyu/Documents/tasksapp/css/bootstrap-responsive.css",
-		"/C/Users/Janyu/Documents/tasksapp/css/bootstrap.min.css",
 		"/C/Users/Janyu/Documents/tasksapp/sample.py",
 		"/C/Users/Janyu/Documents/tasksapp/docs/examples/signin.html",
 		"/C/Users/Janyu/Documents/tasksapp/templates/signin.html",
 		"/C/Users/Janyu/Documents/tasksapp/js/vendor/jquery-1.9.0.min.js",
-		"/C/Users/Janyu/Documents/tasksapp/docs/examples/hero.html",
 		"/C/Users/Janyu/Documents/tasksapp/js/vendor/bootstrap.js",
 		"/C/Users/Janyu/Documents/tasksapp/js/main.js",
 		"/C/Users/Janyu/Documents/tasksapp/initializr/index.html",
@@ -363,6 +359,17 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"task.",
+			"user.User",
+			"models.user",
+			"user.User",
+			"user",
+			"user.",
+			"called",
+			"iscalled",
+			"None",
+			"jumbotron",
+			"><",
 			"userSearch",
 			"script",
 			"/*!",
@@ -402,6 +409,11 @@
 		"regex": false,
 		"replace_history":
 		[
+			"taskModel",
+			"userModel.User",
+			"user",
+			"models.user.User",
+			"models.user.",
 			"logForm",
 			"regForm",
 			"registration",
@@ -420,7 +432,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -428,15 +440,15 @@
 					"file": "main.py",
 					"settings":
 					{
-						"buffer_size": 11839,
+						"buffer_size": 12130,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10603,
-								10603
+								678,
+								678
 							]
 						],
 						"settings":
@@ -446,81 +458,54 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4081.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "templates/homepage.html",
-					"settings":
-					{
-						"buffer_size": 5991,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4841,
-								4841
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 166.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "docs/examples/hero.html",
-					"settings":
-					{
-						"buffer_size": 5827,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								348,
-								348
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "templates/index.html",
+					"buffer": 1,
+					"file": "homepage.py",
 					"settings":
 					{
-						"buffer_size": 5722,
+						"buffer_size": 1948,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3003,
-								3003
+								909,
+								909
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 346.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "templates/homepage.html",
+					"settings":
+					{
+						"buffer_size": 7808,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5174,
+								5174
 							]
 						],
 						"settings":
@@ -530,13 +515,13 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1143.0,
+						"translation.y": 1282.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 3,
 					"file": "templates/register.html",
 					"settings":
 					{
@@ -547,8 +532,8 @@
 						"selection":
 						[
 							[
-								1117,
-								1117
+								4174,
+								4302
 							]
 						],
 						"settings":
@@ -558,35 +543,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "utils.py",
-					"settings":
-					{
-						"buffer_size": 1001,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								712,
-								712
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1051.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -636,6 +593,34 @@
 		"selected_items":
 		[
 			[
+				"regi",
+				"templates/register.html"
+			],
+			[
+				"user",
+				"models/user.py"
+			],
+			[
+				"ini",
+				"models/_init_.py"
+			],
+			[
+				"app",
+				"app.yaml"
+			],
+			[
+				"main.c",
+				"css/main.css"
+			],
+			[
+				"main",
+				"main.py"
+			],
+			[
+				"boo",
+				"css/bootstrap.min.css"
+			],
+			[
 				"mai",
 				"main.py"
 			],
@@ -656,20 +641,12 @@
 				"docs/index.html"
 			],
 			[
-				"main",
-				"main.py"
-			],
-			[
 				"ut",
 				"utils.py"
 			],
 			[
 				"uti",
 				"utils.py"
-			],
-			[
-				"regi",
-				"templates/register.html"
 			],
 			[
 				"fro",
@@ -682,10 +659,6 @@
 			[
 				"fron",
 				"templates/frontpage.html"
-			],
-			[
-				"user",
-				"user.py"
 			],
 			[
 				"stand",
@@ -718,10 +691,6 @@
 			[
 				"main.cs",
 				"css/main.css"
-			],
-			[
-				"boo",
-				"css/bootstrap-responsive.css"
 			],
 			[
 				"bo",

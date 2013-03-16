@@ -52,7 +52,12 @@ class NewTaskHandler(BaseTaskHandler):
 
 
 
+class DeleteTaskHandler(BaseTaskHandler):
+    def post(self):
+        return
+
 
 app = webapp2.WSGIApplication([('/homepage',HomePageHandler),
-                                ("/homepage/newtask",NewTaskHandler)
+                                ('/homepage/newtask',NewTaskHandler),
+                                ('/homepage/deltask',DeleteTaskHandler)
                                 ], debug=True)
