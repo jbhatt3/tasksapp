@@ -2,13 +2,14 @@ import webapp2
 import jinja2
 import os
 import re
-import user
 import hashlib
 import hmac
 import string
 import utils
 import main
-import models
+from models import user
+from models import task
+
 #Initializes templating features of Jinja2 framework
 template_dir = os.path.join(os.path.dirname(__file__))
 jinja_environment = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),

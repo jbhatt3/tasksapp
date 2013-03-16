@@ -18,7 +18,7 @@ import webapp2
 import jinja2
 import os
 import re
-import user
+from models import user
 import hashlib
 import hmac
 import string
