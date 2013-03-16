@@ -101,7 +101,10 @@
                                         <span class = "span2"> Priority: {{t.priority}}</span>
                                     </div>
                                     <br />
-                                    <form action = "/homepage/deltask"><input type = "submit" value ="Delete Task"></input></form>
+                                    <form action = "/homepage/deltask" method = "post">
+                                        <input class = "hide" name = "k" value ="{{t.key()}}"></input>
+                                        <input type = "submit"  value ="Delete Task"></input>
+                                    </form>
                                 </li>
                             {%endfor%}
                         {%endif%}

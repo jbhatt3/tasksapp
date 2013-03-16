@@ -9,6 +9,8 @@ import utils
 import main
 from models import userModel
 from models import taskModel
+from google.appengine.ext import db
+
 
 #Initializes templating features of Jinja2 framework
 template_dir = os.path.join(os.path.dirname(__file__))
@@ -18,7 +20,7 @@ jinja_environment = jinja2.Environment(loader = jinja2.FileSystemLoader(template
 class BaseTaskHandler(main.BaseHandler):
     def getTasks(self, userId):
         tasksQuery = taskModel.Task.all()
-        tasksQuery = tasksQuery.ancestor(taskModel.taskKey(userId))
+        tasksQuery = tasksQuery.ancestor(taskModel.taskAncestorKey(userId))
         tasksQuery = tasksQuery.order('dateCreated')
         return tasksQuery
 
@@ -46,15 +48,20 @@ class NewTaskHandler(BaseTaskHandler):
         priority = self.request.get("priority")
         user = self.getUserFromCookie()
         userId = user.key().id()
-        newTask = taskModel.Task(title = title,description = description, dueDate = dueDate, priority = priority, userId = userId, parent=taskModel.taskKey(userId))
+        newTask = taskModel.Task(title = title,description = description, dueDate = dueDate, priority = priority,
+                                 userId = userId, parent=taskModel.taskAncestorKey(userId))
         newTask.put()
-        self.redirect('/homepage')                  
+        #self.redirect('/homepage')                  
 
 
 
 class DeleteTaskHandler(BaseTaskHandler):
     def post(self):
-        return
+        taskKey = self.request.get("k")
+        self.write(taskKey)
+        task = db.get(taskKey)
+        task.delete()
+        self.redirect('/homepage')
 
 
 app = webapp2.WSGIApplication([('/homepage',HomePageHandler),
