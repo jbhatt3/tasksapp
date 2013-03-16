@@ -18,7 +18,7 @@ import webapp2
 import jinja2
 import os
 import re
-from models import user
+from models import userModel
 import hashlib
 import hmac
 import string
@@ -61,7 +61,6 @@ class BaseHandler(webapp2.RequestHandler):
 #if session cookie works, then it returns the userId. If not, returns false
     def validateSessionCookie(self,userIdHash):
         userId = userIdHash.split("|")[0]
-        hashed = userIdHash.split("|")[1]
         if(utils.valid_hash(userId,userIdHash)):
             return userId
         else:
@@ -81,7 +80,7 @@ class BaseHandler(webapp2.RequestHandler):
         if userIdCookie_str:
             userId = self.validateSessionCookie(userIdCookie_str)
             if userId:
-                return user.User.get_by_id(int(userId))
+                return userModel.User.get_by_id(int(userId))
 
 
 
@@ -150,7 +149,7 @@ class FormHandler(BaseHandler):
         userSearch = {'userFound':False}
         email = fields['email']
         password = password
-        allUsers = user.User.all()
+        allUsers = userModel.User.all()
         matchingUsers = allUsers.filter("email =", email)
         if matchingUsers.count() == 1:
             passHashed = matchingUsers.get().passHashed
@@ -232,7 +231,7 @@ class RegisterHandler(FormHandler):
 #if either email or username are taken,returns a mapping with user found true and the which match was made.
     def validateUser(self,fields):
         email = fields['email']
-        allUsers = user.User.all()
+        allUsers = userModel.User.all()
         matchingUsers = allUsers.filter("email =", email)
         if matchingUsers.count() == 1:
             userSearch = {'userFound':True,
@@ -311,25 +310,15 @@ class RegisterHandler(FormHandler):
         username = fields['username']
         password = fields['password']
         passHashed = self.hashPass(password)
-        newUser = user.User(email=email, username=username, passHashed=passHashed)
+        newUser = userModel.User(email=email, username=username, passHashed=passHashed)
         newUser.put()
         userId = newUser.key().id()
         return  userId
 
 
-class HomePageHandler(BaseHandler):
-    def renderStart(self,template, errors = {}, fields = {}):
-        template_values = self.createTemplate_values(errors,fields)
-        self.render(template,**template_values)
-    def get(self):
-        user = self.getUserFromCookie()
-        fields = {"username":user.username
-                  }
-        self.renderStart("/templates/homepage.html",fields=fields)
 app = webapp2.WSGIApplication([('/', FrontPageHandler),
                                 ('/login', LoginHandler),
                                 ('/logout',LogoutHandler),
-                                ('/register', RegisterHandler),
-                                ('/homepage',HomePageHandler)
+                                ('/register', RegisterHandler)
                                 ], debug=True)
 
