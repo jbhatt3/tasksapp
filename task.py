@@ -6,6 +6,7 @@ def taskKey(name = "default"):
 
 class Task(db.Model):
 	title = db.StringProperty()
-	dateCreated = db.DateTimeProperty(auto_now_add=True)	
-	description = db.StringProperty()
+	description = db.TextProperty()
+	dueDate = db.StringProperty
 	priority = db.StringProperty()
+	dateCreated = db.DateTimeProperty(auto_now_add=True)	
