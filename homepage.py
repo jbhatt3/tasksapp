@@ -26,6 +26,7 @@ class HomePageHandler(BaseTaskHandler):
     def renderStart(self,template, errors = {}, fields = {}):
         template_values = self.createTemplate_values(errors,fields)
         self.render(template,**template_values)
+        
     def get(self):
         user = self.getUserFromCookie()
         userId = user.key().id()
