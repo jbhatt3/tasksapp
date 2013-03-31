@@ -40,7 +40,10 @@ class HomePageHandler(BaseTaskHandler):
 
 
 
-class NewTaskHandler(BaseTaskHandler):
+class NewTaskHandler(HomePageHandler):
+    def get(self):
+        self.renderStart("/templates/newtask.html")
+
     def post(self):
         title = self.request.get("title")
         description = self.request.get("description")
@@ -51,20 +54,20 @@ class NewTaskHandler(BaseTaskHandler):
         newTask = taskModel.Task(title = title,description = description, dueDate = dueDate, priority = priority,
                                  userId = userId, parent=taskModel.taskAncestorKey(userId))
         newTask.put()
-        #self.redirect('/homepage')                  
+        self.redirect('/homepage')                  
 
 
 
-class DeleteTaskHandler(BaseTaskHandler):
+class DeleteTaskHandler(HomePageHandler):
     def post(self):
         taskKey = self.request.get("k")
         self.write(taskKey)
         task = db.get(taskKey)
         task.delete()
-        self.redirect('/homepage')
+        self.redirect('/homepage')    
 
 
 app = webapp2.WSGIApplication([('/homepage',HomePageHandler),
                                 ('/homepage/newtask',NewTaskHandler),
-                                ('/homepage/deltask',DeleteTaskHandler)
+                                ('/homepage/deltask',DeleteTaskHandler),
                                 ], debug=True)

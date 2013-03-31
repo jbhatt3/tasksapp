@@ -60,36 +60,29 @@
             </div>
         </div>
         <div class="container">
-            <div class = "jumbotron subhead">
-                <h1> {{fields.user.username}}'s Task List<h1>
-                <p><h3>You have {{fields.userTasks.count()}} Tasks</h3></p>
-                <br />
-                <a href="/homepage/newtask" class ="btn">New Task</a>
-            </div> 
             <hr>
             <div class = "row-fluid">
-                <div class = "span12">
-                    <ul class ="task">
-                        {%if fields.userTasks:%}
-                            {%for t in fields.userTasks.run()%}
-                                <li>
-                                    <h4><strong> Task Title: {{t.title}}</strong> Due: {{t.dueDate}}</h4>
-                                    <p> Task Description here: {{t.description}}</p>
-                                    <div class = "row-fluid">
-                                        <span class = "span2">Due Date: {{t.dateCreated.strftime("%b,%d,%Y")}}</span>
-                                        <span class = "span2"> Priority: {{t.priority}}</span>
-                                    </div>
-                                    <br />
-                                    <form action = "/homepage/deltask" method = "post">
-                                        <input class = "hide" name = "k" value ="{{t.key()}}"></input>
-                                        <input type = "submit"  value ="Delete Task"></input>
-                                    </form>
-                                </li>
-                            {%endfor%}
-                        {%endif%}
-                    </ul>
+                <div class = "span10">
+                    <form action = "/homepage/newtask" method = "post">
+                        <h4><strong> Task Title: </strong> 
+                        <input type="text" class="input-block-level" placeholder="Title" name="title" value="">
+                        </h4>
+                        <p> Task Description here:
+                        <textarea class="input-block-level" placeholder="Description" rows = 5 cols = 10 name="description" value=""></textarea>
+                        </p>
+                            <div class = "row-fluid">
+                                <span class = "span2">Task Due Date:
+                                <input type="text" class="input-block-level" placeholder="Date" name="dueDate" value="">
+                                </span>
+                                <span class = "span2"> Priority: 
+                                <input type="text" class="input-block-level" placeholder="Priority" name="priority" value="">
+                                </span>
+                            </div>
+                            <br />
+                            <input type = "submit" value = "Submit Task">
+                    </form>
                 </div>
-            </div>    
+            </div>      
 
             <hr>
             <footer class = "offset2">
