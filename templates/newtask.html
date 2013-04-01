@@ -75,7 +75,14 @@
                                 <input type="text" class="input-block-level" placeholder="Date" name="dueDate" value="">
                                 </span>
                                 <span class = "span2"> Priority: 
-                                <input type="text" class="input-block-level" placeholder="Priority" name="priority" value="">
+                                <input type="range" min = "1" max = "9"  class="input-block-level" placeholder="Priority" name="priority"  value=""onchange="showValue(this.value)">
+                                <span id = "priority"></span>
+                                    <script type="text/javascript">
+                                        function showValue(newValue)
+                                        {
+                                            document.getElementById("priority").innerHTML=newValue;
+                                        }
+                                    </script>
                                 </span>
                             </div>
                             <br />
