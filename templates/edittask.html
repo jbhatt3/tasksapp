@@ -62,7 +62,7 @@
             <div class="container">
             <div class = "row-fluid">
                 <div class = "span10">
-                    <form action = "/homepage/newtask" method = "post">
+                    <form action = "/homepage/updatetask" method = "post">
                         <h4><strong> Task Title: </strong> 
                         <input type="text" class="input-block-level"  name="title" value="{{fields.userTask.title}}">
                         </h4>
@@ -89,6 +89,7 @@
                                 </span>
                             </div>
                             <br />
+                            <input class = "hide" name = "k" value ="{{fields.userTask.key()}}"></input>
                             <input type = "submit" value = "Update Task">
                     </form>
                 </div>

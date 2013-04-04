@@ -38,6 +38,18 @@ class HomePageHandler(BaseTaskHandler):
                   }
         self.renderStart("/templates/homepage.html",fields=fields)
 
+    def fixDueDate(self,dueDate):
+        split1 = dueDate.partition('-')
+        year = split1[0]
+        split2 = split1[2].partition('-')
+        month  = split2[0]
+        day  = split2[2]
+        if year.isdigit() and month.isdigit() and day.isdigit():
+            fixedDate = month+'/'+day+'/'+year
+            return fixedDate
+        else:
+            return None
+
 
 
 class NewTaskHandler(HomePageHandler):
@@ -57,17 +69,7 @@ class NewTaskHandler(HomePageHandler):
         newTask.put()
         self.redirect('/homepage')                  
 
-    def fixDueDate(self,dueDate):
-        split1 = dueDate.partition('-')
-        year = split1[0]
-        split2 = split1[2].partition('-')
-        month  = split2[0]
-        day  = split2[2]
-        if year.isdigit() and month.isdigit() and day.isdigit():
-            fixedDate = month+'/'+day+'/'+year
-            return fixedDate
-        else:
-            return None
+
 
 
 
@@ -95,6 +97,18 @@ class EditTaskHandler(HomePageHandler):
         fields = {'user': user,'userTask':task}
         self.renderStart('templates/edittask.html',fields=fields)
 
+class UpdateTaskHandler(HomePageHandler):
+    def post(self):
+        taskKey = self.request.get("k")
+        task = db.get(taskKey)
+        task.title = self.request.get("title")
+        task.description = self.request.get("description")
+        task.dueDate = self.request.get("dueDate")
+        task.fixedDueDate = self.fixDueDate(task.dueDate)
+        task.priority = self.request.get("priority")
+        task.put()
+        self.redirect('/homepage')
+
 
 
 
@@ -103,4 +117,5 @@ app = webapp2.WSGIApplication([('/homepage',HomePageHandler),
                                 ('/homepage/deltask',DeleteTaskHandler),
                                 ('/homepage/task/(\d+)',TaskPageHandler),
                                 ('/homepage/edittask',EditTaskHandler),
+                                ('/homepage/updatetask',UpdateTaskHandler)
                                 ], debug=True)
