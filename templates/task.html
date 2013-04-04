@@ -10,18 +10,18 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
-        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
         <style>
             body {
                 padding-top: 60px;
                 padding-bottom: 40px;
             }
         </style>
-        <link rel = "stylesheet" href = "../css/bootstrap.css">
-        <link rel="stylesheet" href="../css/bootstrap-responsive.min.css">
-        <link rel="stylesheet" href="../css/main.css">
+        <link rel = "stylesheet" href = "/css/bootstrap.css">
+        <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="/css/main.css">
 
-        <script src="../js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <script src="/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -62,27 +62,23 @@
         <div class="container">
             <div class = "jumbotron subhead">
                 <h1> {{fields.user.username}}'s Task List<h1>
-                <p><h3>You have {{fields.userTasks.count()}} Tasks</h3></p>
                 <br />
-                <a href="/homepage/newtask" class ="btn">New Task</a>
             </div> 
-            <hr>
             <div class = "row-fluid">
                 <div class = "span12">
-                    <ul class ="task">
-                        {%if fields.userTasks:%}
-                            {%for t in fields.userTasks.run()%}
-                                <li>
-                                    <a href ="/homepage/task/{{t.key().id()}}"<h4><strong> Task Title: {{t.title}}</strong> Due: {{t.dueDate}}</h4></a>
-                                    <br />
-                                    <form action = "/homepage/deltask" method = "post">
-                                        <input class = "hide" name = "k" value ="{{t.key()}}"></input>
-                                        <input type = "submit"  value ="Delete Task"></input>
-                                    </form>
-                                </li>
-                            {%endfor%}
-                        {%endif%}
-                    </ul>
+                    {%if fields.userTask:%}
+                        <h4><strong> Task Title: {{userTask.title}}</strong> Due: {{userTask.dueDate}}</h4>
+                        <p> Task Description here: {{t.description}}</p>
+                        <div class = "row-fluid">
+                            <span class = "span2">Due Date: {{userTask.dateCreated.strftime("%b,%d,%Y")}}</span>
+                            <span class = "span2"> Priority: {{userTask.priority}}</span>
+                        </div>
+                        <br />
+                        <form action = "/homepage/deltask" method = "post">
+                            <input class = "hide" name = "k" value ="{{userTask.key()}}"></input>
+                            <input type = "submit"  value ="Delete Task"></input>
+                        </form>
+                    {%endif%}
                 </div>
             </div>    
 
@@ -96,9 +92,9 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="..js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
 =================================================================================================-->
-        <script src ="../js/vendor/jquery-1.9.0.min.js"></script>
-        <script src="../js/vendor/bootstrap.min.js"></script>
-        <script src="../js/main.js"></script>
+        <script src ="/js/vendor/jquery-1.9.0.min.js"></script>
+        <script src="/js/vendor/bootstrap.min.js"></script>
+        <script src="/js/main.js"></script>
 
         <script>
             var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];

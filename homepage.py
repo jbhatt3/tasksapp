@@ -64,10 +64,17 @@ class DeleteTaskHandler(HomePageHandler):
         self.write(taskKey)
         task = db.get(taskKey)
         task.delete()
-        self.redirect('/homepage')    
+        self.redirect('/homepage')
+
+class TaskPageHandler(HomePageHandler):
+    def get(self,taskId):
+        task = taskModel.Task.get_by_id(int(taskId))
+        fields = {'user': self.getUserFromCookie(),'userTask':task}
+        self.renderStart('templates/task.html',fields=fields)
 
 
 app = webapp2.WSGIApplication([('/homepage',HomePageHandler),
                                 ('/homepage/newtask',NewTaskHandler),
                                 ('/homepage/deltask',DeleteTaskHandler),
+                                ('/homepage/task/(\d+)',TaskPageHandler)
                                 ], debug=True)
