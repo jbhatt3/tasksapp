@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"list-",
+				"list-style-type"
+			],
+			[
 				"Base",
 				"BaseTaskHandler"
 			],
@@ -239,7 +243,7 @@
 			"file": "homepage.py",
 			"settings":
 			{
-				"buffer_size": 2326,
+				"buffer_size": 2403,
 				"line_ending": "Windows"
 			}
 		},
@@ -247,7 +251,7 @@
 			"file": "templates/homepage.html",
 			"settings":
 			{
-				"buffer_size": 7039,
+				"buffer_size": 5819,
 				"line_ending": "Windows"
 			}
 		},
@@ -265,6 +269,30 @@
 			{
 				"buffer_size": 334,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "css/main.css",
+			"settings":
+			{
+				"buffer_size": 1054,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "templates/newtask.html",
+			"settings":
+			{
+				"buffer_size": 5988,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "templates/index.html",
+			"settings":
+			{
+				"buffer_size": 5722,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -292,6 +320,8 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Janyu/Documents/tasksapp/docs/index.html",
+		"/C/Users/Janyu/Documents/tasksapp/initializr/index.html",
 		"/C/Users/Janyu/Documents/tasksapp/task.py",
 		"/C/Users/Janyu/Documents/tasksapp/app.yaml",
 		"/C/Users/Janyu/Documents/tasksapp/models/user.py",
@@ -307,7 +337,6 @@
 		"/C/Users/Janyu/Documents/tasksapp/css/bootstrap.min.css",
 		"/C/Users/Janyu/Documents/tasksapp/css/bootstrap-responsive.css",
 		"/C/Users/Janyu/Documents/tasksapp/templates/login.html",
-		"/C/Users/Janyu/Documents/tasksapp/docs/index.html",
 		"/C/Users/Janyu/Documents/Bluetooth Exchange Folder/Obsolete/Files 11'th Grade/AP Computer Science/PokerProj/PokerProj/Player.class",
 		"/C/Users/Janyu/Documents/Bluetooth Exchange Folder/Obsolete/Files 11'th Grade/AP Computer Science/PokerProj/PokerProj/Deck.java",
 		"/C/Users/Janyu/Documents/Bluetooth Exchange Folder/Obsolete/Files 11'th Grade/AP Computer Science/PokerProj/PokerProj/Game.java",
@@ -324,7 +353,6 @@
 		"/C/Users/Janyu/Documents/tasksapp/js/vendor/jquery-1.9.0.min.js",
 		"/C/Users/Janyu/Documents/tasksapp/js/vendor/bootstrap.js",
 		"/C/Users/Janyu/Documents/tasksapp/js/main.js",
-		"/C/Users/Janyu/Documents/tasksapp/initializr/index.html",
 		"/C/Users/Janyu/Documents/tasksapp/templates/frontpage.html",
 		"/C/Users/Janyu/Documents/tasksapp/templates/frontpage2.html",
 		"/C/Users/Janyu/Documents/tasksapp/index.yaml",
@@ -440,7 +468,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 6,
 			"sheets":
 			[
 				{
@@ -455,8 +483,8 @@
 						"selection":
 						[
 							[
-								12081,
-								12081
+								2668,
+								2729
 							]
 						],
 						"settings":
@@ -466,7 +494,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4456.0,
+						"translation.y": 661.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -476,15 +504,15 @@
 					"file": "homepage.py",
 					"settings":
 					{
-						"buffer_size": 2326,
+						"buffer_size": 2403,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1808,
-								1808
+								2145,
+								2145
 							]
 						],
 						"settings":
@@ -495,7 +523,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 390.0,
+						"translation.y": 375.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -505,15 +533,15 @@
 					"file": "templates/homepage.html",
 					"settings":
 					{
-						"buffer_size": 7039,
+						"buffer_size": 5819,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								3303,
+								3303
 							]
 						],
 						"settings":
@@ -523,7 +551,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 706.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -581,6 +609,88 @@
 						"zoom_level": 1.0
 					},
 					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "css/main.css",
+					"settings":
+					{
+						"buffer_size": 1054,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1002,
+								1002
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "templates/newtask.html",
+					"settings":
+					{
+						"buffer_size": 5988,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4239,
+								4239
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 644.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "templates/index.html",
+					"settings":
+					{
+						"buffer_size": 5722,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
 				}
 			]
 		}
@@ -626,6 +736,18 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"index",
+				"templates/index.html"
+			],
+			[
+				"inde",
+				"docs/index.html"
+			],
+			[
+				"main.cs",
+				"css/main.css"
+			],
 			[
 				"task",
 				"task.py"
@@ -679,10 +801,6 @@
 				"css/bootstrap.css"
 			],
 			[
-				"index",
-				"docs/index.html"
-			],
-			[
 				"ut",
 				"utils.py"
 			],
@@ -731,10 +849,6 @@
 				"main.py"
 			],
 			[
-				"main.cs",
-				"css/main.css"
-			],
-			[
 				"bo",
 				"css/bootstrap.min.css"
 			],
@@ -761,10 +875,6 @@
 			[
 				"ind",
 				"templates/index.html"
-			],
-			[
-				"inde",
-				"initializr/index.html"
 			],
 			[
 				"front",
