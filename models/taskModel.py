@@ -5,6 +5,7 @@ def taskAncestorKey(userId, listName = "default"):
 
 
 class Task(db.Model):
+	title = db.StringProperty()
 	description = db.TextProperty()
 	dueDate = db.StringProperty()
 	priority = db.StringProperty()

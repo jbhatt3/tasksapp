@@ -70,7 +70,7 @@ class BaseHandler(webapp2.RequestHandler):
 
     #called at the beginning of each get function. Verifies cookies, and loads correct template with errors if any.
     def renderStart(self,template, errors = {}, fields = {}):
-        if self.validateSessionCookie(userIdCookie_str):
+        if self.validateSessionCookie():
             self.redirect('/homepage')
         template_values = self.createTemplate_values(errors,fields)
         self.render(template,**template_values)

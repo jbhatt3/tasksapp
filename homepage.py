@@ -68,8 +68,10 @@ class DeleteTaskHandler(HomePageHandler):
 
 class TaskPageHandler(HomePageHandler):
     def get(self,taskId):
-        task = taskModel.Task.get_by_id(int(taskId))
-        fields = {'user': self.getUserFromCookie(),'userTask':task}
+        user = self.getUserFromCookie()
+        userId= user.key().id()
+        task = taskModel.Task.get_by_id(int(taskId), parent = taskModel.taskAncestorKey(userId))    
+        fields = {'user': user,'userTask':task}
         self.renderStart('templates/task.html',fields=fields)
 
 

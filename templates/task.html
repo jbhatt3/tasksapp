@@ -67,15 +67,15 @@
             <div class = "row-fluid">
                 <div class = "span12">
                     {%if fields.userTask:%}
-                        <h4><strong> Task Title: {{userTask.title}}</strong> Due: {{userTask.dueDate}}</h4>
-                        <p> Task Description here: {{t.description}}</p>
+                        <h4><strong> Task Title: {{fields.userTask.title}}</strong> Due: {{fields.userTask.dueDate}}</h4>
+                        <p> Task Description here: {{fields.userTask.description}}</p>
                         <div class = "row-fluid">
-                            <span class = "span2">Due Date: {{userTask.dateCreated.strftime("%b,%d,%Y")}}</span>
-                            <span class = "span2"> Priority: {{userTask.priority}}</span>
+                            <span class = "span2">Due Date: {{fields.userTask.dateCreated.strftime("%b,%d,%Y")}}</span>
+                            <span class = "span2"> Priority: {{fields.userTask.priority}}</span>
                         </div>
                         <br />
                         <form action = "/homepage/deltask" method = "post">
-                            <input class = "hide" name = "k" value ="{{userTask.key()}}"></input>
+                            <input class = "hide" name = "k" value ="{{fields.userTask.key()}}"></input>
                             <input type = "submit"  value ="Delete Task"></input>
                         </form>
                     {%endif%}
