@@ -72,11 +72,11 @@
                         </p>
                             <div class = "row-fluid">
                                 <span class = "span2">Task Due Date:
-                                <input type="text" class="input-block-level" placeholder="Date" name="dueDate" value="">
+                                <input type="date" class="input-block-level" placeholder="Date" name="dueDate" value="">
                                 </span>
                                 <span class = "span2"> Priority: 
-                                <input type="range" min = "1" max = "9"  class="input-block-level" placeholder="Priority" name="priority"  value=""onchange="showValue(this.value)">
-                                <span id = "priority"></span>
+                                <input type="range" min = "1" max = "9"  class="input-block-level" placeholder="Priority" name="priority"  value="1"onchange="showValue(this.value)">
+                                <span id = "priority">1</span>
                                     <script type="text/javascript">
                                         function showValue(newValue)
                                         {
