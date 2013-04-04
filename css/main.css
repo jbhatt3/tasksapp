@@ -39,9 +39,27 @@ body {
 	padding: 7px 9px;
 }
 
-.task {
+
+ul.task {
 	list-style-type: none;
+	padding: 2em;
 }
+
+li.task{
+	background-color: white;
+	webkit-border-radius: 5px;
+   		-moz-border-radius: 5px;
+        	border-radius: 5px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+   		-moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        	box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    padding-top:  10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 1px;
+    margin-bottom: 10px;
+}
+
 
 
 

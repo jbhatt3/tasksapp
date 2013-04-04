@@ -59,7 +59,7 @@
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container" >
             <div class = "jumbotron subhead">
                 <h1> {{fields.user.username}}'s Task List<h1>
                 <p><h3>You have {{fields.userTasks.count()}} Tasks</h3></p>
@@ -72,7 +72,7 @@
                     <ul class ="task">
                         {%if fields.userTasks:%}
                             {%for t in fields.userTasks.run()%}
-                                <li>
+                                <li class = "task">
                                     <a href ="/homepage/task/{{t.key().id()}}"<h4><strong> Task Title: {{t.title}}</strong> Due: 
                                         {%if t.fixedDueDate != False:%}
                                             {{t.fixedDueDate}}
