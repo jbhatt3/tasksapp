@@ -67,12 +67,12 @@
                         <input type="text" class="input-block-level"  name="title" value="{{fields.userTask.title}}">
                         </h4>
                         <p> Task Description here:
-                        <textarea class="input-block-level"  rows = 5 cols = 10 name="description" value="{{fields.userTask.description}}"></textarea>
+                        <textarea class="input-block-level"  rows = 5 cols = 10 name="description">{{fields.userTask.description}}</textarea>
                         </p>
                             <div class = "row-fluid">
                                 <span class = "span2">Task Due Date:
-                                    {%if {{fields.userTask.fixedDueDate}} != False:%}
-                                        <input type="date" class="input-block-level"  name="dueDate" value="{{fields.userTask.fixedDueDate}}">
+                                    {% if fields.userTask.fixedDueDate != False: %}
+                                        <input type="date" class="input-block-level"  name="dueDate" value="{{fields.userTask.dueDate}}">
                                     {%else:%}
                                         <input type="text" class="input-block-level" name="dueDate" value="{{fields.userTask.dueDate}}">
                                     {%endif%}

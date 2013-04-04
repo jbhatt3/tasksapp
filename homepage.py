@@ -49,8 +49,6 @@ class NewTaskHandler(HomePageHandler):
         description = self.request.get("description")
         dueDate = self.request.get("dueDate")
         fixedDueDate = self.fixDueDate(dueDate)
-        if fixedDueDate != False:
-            dueDate = fixedDueDate
         priority = self.request.get("priority")
         user = self.getUserFromCookie()
         userId = user.key().id()
@@ -69,14 +67,13 @@ class NewTaskHandler(HomePageHandler):
             fixedDate = month+'/'+day+'/'+year
             return fixedDate
         else:
-            return False
+            return None
 
 
 
 class DeleteTaskHandler(HomePageHandler):
     def post(self):
         taskKey = self.request.get("k")
-        self.write(taskKey)
         task = db.get(taskKey)
         task.delete()
         self.redirect('/homepage')
@@ -89,9 +86,21 @@ class TaskPageHandler(HomePageHandler):
         fields = {'user': user,'userTask':task}
         self.renderStart('templates/task.html',fields=fields)
 
+class EditTaskHandler(HomePageHandler):
+    def post(self):
+        taskKey = self.request.get("k")
+        task = db.get(taskKey)
+        user = self.getUserFromCookie()
+        userId= user.key().id()
+        fields = {'user': user,'userTask':task}
+        self.renderStart('templates/edittask.html',fields=fields)
+
+
+
 
 app = webapp2.WSGIApplication([('/homepage',HomePageHandler),
                                 ('/homepage/newtask',NewTaskHandler),
                                 ('/homepage/deltask',DeleteTaskHandler),
-                                ('/homepage/task/(\d+)',TaskPageHandler)
+                                ('/homepage/task/(\d+)',TaskPageHandler),
+                                ('/homepage/edittask',EditTaskHandler),
                                 ], debug=True)

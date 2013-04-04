@@ -67,17 +67,29 @@
             <div class = "row-fluid">
                 <div class = "span12">
                     {%if fields.userTask:%}
-                        <h4><strong> Task Title: {{fields.userTask.title}}</strong> Due: {{fields.userTask.dueDate}}</h4>
+                        <h4><strong> Task Title: {{fields.userTask.title}}</strong> Due:
+                            {%if fields.userTask.fixedDueDate != False:%}
+                                {{fields.userTask.fixedDueDate}}
+                            {%else:%}
+                                {{fields.userTask.dueDate}}
+                            {%endif%}
+                            </h4>
                         <p> Task Description here: {{fields.userTask.description}}</p>
                         <div class = "row-fluid">
                             <span class = "span2">Date Created: {{fields.userTask.dateCreated.strftime("%b,%d,%Y")}}</span>
                             <span class = "span2"> Priority: {{fields.userTask.priority}}</span>
                         </div>
                         <br />
-                        <form action = "/homepage/deltask" method = "post">
-                            <input class = "hide" name = "k" value ="{{fields.userTask.key()}}"></input>
-                            <input type = "submit"  value ="Delete Task"></input>
-                        </form>
+                        <div class = "row-fluid">
+                            <form action = "/homepage/deltask" method = "post" class = "span1">
+                                <input class = "hide" name = "k" value ="{{fields.userTask.key()}}"></input>
+                                <input type = "submit"  value ="Delete Task"></input>
+                            </form>
+                            <form action = "/homepage/edittask" method = "post" class = "span1">
+                                <input class = "hide" name = "k" value ="{{fields.userTask.key()}}"></input>
+                                <input type = "submit"  value ="Edit Task"></input>
+                            </form>
+                        </div>
                     {%endif%}
                 </div>
             </div>

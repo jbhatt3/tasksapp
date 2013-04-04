@@ -73,7 +73,12 @@
                         {%if fields.userTasks:%}
                             {%for t in fields.userTasks.run()%}
                                 <li>
-                                    <a href ="/homepage/task/{{t.key().id()}}"<h4><strong> Task Title: {{t.title}}</strong> Due: {{t.dueDate}}</h4></a>
+                                    <a href ="/homepage/task/{{t.key().id()}}"<h4><strong> Task Title: {{t.title}}</strong> Due: 
+                                        {%if t.fixedDueDate != False:%}
+                                            {{t.fixedDueDate}}
+                                        {%else:%}
+                                            {{t.dueDate}}
+                                        {%endif%}</h4></a>
                                     <br />
                                     <form action = "/homepage/deltask" method = "post">
                                         <input class = "hide" name = "k" value ="{{t.key()}}"></input>
