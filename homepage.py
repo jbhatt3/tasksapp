@@ -48,13 +48,28 @@ class NewTaskHandler(HomePageHandler):
         title = self.request.get("title")
         description = self.request.get("description")
         dueDate = self.request.get("dueDate")
+        fixedDueDate = self.fixDueDate(dueDate)
+        if fixedDueDate != False:
+            dueDate = fixedDueDate
         priority = self.request.get("priority")
         user = self.getUserFromCookie()
         userId = user.key().id()
-        newTask = taskModel.Task(title = title,description = description, dueDate = dueDate, priority = priority,
+        newTask = taskModel.Task(title = title,description = description, dueDate = dueDate, fixedDueDate = fixedDueDate, priority = priority,
                                  userId = userId, parent=taskModel.taskAncestorKey(userId))
         newTask.put()
         self.redirect('/homepage')                  
+
+    def fixDueDate(self,dueDate):
+        split1 = dueDate.partition('-')
+        year = split1[0]
+        split2 = split1[2].partition('-')
+        month  = split2[0]
+        day  = split2[2]
+        if year.isdigit() and month.isdigit() and day.isdigit():
+            fixedDate = month+'/'+day+'/'+year
+            return fixedDate
+        else:
+            return False
 
 
 

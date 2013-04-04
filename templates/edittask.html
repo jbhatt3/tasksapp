@@ -59,28 +59,40 @@
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class = "jumbotron subhead">
-                <h1> {{fields.user.username}}'s Task List<h1>
-                <br />
-            </div> 
+            <div class="container">
             <div class = "row-fluid">
-                <div class = "span12">
-                    {%if fields.userTask:%}
-                        <h4><strong> Task Title: {{fields.userTask.title}}</strong> Due: {{fields.userTask.dueDate}}</h4>
-                        <p> Task Description here: {{fields.userTask.description}}</p>
-                        <div class = "row-fluid">
-                            <span class = "span2">Date Created: {{fields.userTask.dateCreated.strftime("%b,%d,%Y")}}</span>
-                            <span class = "span2"> Priority: {{fields.userTask.priority}}</span>
-                        </div>
-                        <br />
-                        <form action = "/homepage/deltask" method = "post">
-                            <input class = "hide" name = "k" value ="{{fields.userTask.key()}}"></input>
-                            <input type = "submit"  value ="Delete Task"></input>
-                        </form>
-                    {%endif%}
+                <div class = "span10">
+                    <form action = "/homepage/newtask" method = "post">
+                        <h4><strong> Task Title: </strong> 
+                        <input type="text" class="input-block-level"  name="title" value="{{fields.userTask.title}}">
+                        </h4>
+                        <p> Task Description here:
+                        <textarea class="input-block-level"  rows = 5 cols = 10 name="description" value="{{fields.userTask.description}}"></textarea>
+                        </p>
+                            <div class = "row-fluid">
+                                <span class = "span2">Task Due Date:
+                                    {%if {{fields.userTask.fixedDueDate}} != False:%}
+                                        <input type="date" class="input-block-level"  name="dueDate" value="{{fields.userTask.fixedDueDate}}">
+                                    {%else:%}
+                                        <input type="text" class="input-block-level" name="dueDate" value="{{fields.userTask.dueDate}}">
+                                    {%endif%}
+                                </span>
+                                <span class = "span2"> Priority: 
+                                <input type="range" min = "1" max = "9"  class="input-block-level" placeholder="Priority" name="priority"  value="{{fields.userTask.priority}}"onchange="showValue(this.value)">
+                                <span id = "priority">{{fields.userTask.priority}}</span>
+                                    <script type="text/javascript">
+                                        function showValue(newValue)
+                                        {
+                                            document.getElementById("priority").innerHTML=newValue;
+                                        }
+                                    </script>
+                                </span>
+                            </div>
+                            <br />
+                            <input type = "submit" value = "Update Task">
+                    </form>
                 </div>
-            </div>
+            </div>      
             <hr>
             <footer class = "offset2">
                 <p>&copy; Company 2012</p>
