@@ -4,16 +4,32 @@
 		"selected_items":
 		[
 			[
+				"margin",
+				"margin-bottom"
+			],
+			[
+				"padding",
+				"padding-bottom"
+			],
+			[
+				"background",
+				"background-color"
+			],
+			[
+				"split",
+				"split2"
+			],
+			[
+				"task",
+				"taskKey"
+			],
+			[
 				"list-",
 				"list-style-type"
 			],
 			[
 				"Base",
 				"BaseTaskHandler"
-			],
-			[
-				"task",
-				"taskQuery"
 			],
 			[
 				"tas",
@@ -140,10 +156,6 @@
 				"list-style-type"
 			],
 			[
-				"padding",
-				"padding-left"
-			],
-			[
 				"list-ty",
 				"list-style-image"
 			],
@@ -182,10 +194,6 @@
 			[
 				"align",
 				"vertical-align"
-			],
-			[
-				"margin",
-				"margin-top"
 			],
 			[
 				"inl",
@@ -235,7 +243,7 @@
 			"file": "main.py",
 			"settings":
 			{
-				"buffer_size": 12130,
+				"buffer_size": 12004,
 				"line_ending": "Unix"
 			}
 		},
@@ -243,7 +251,7 @@
 			"file": "homepage.py",
 			"settings":
 			{
-				"buffer_size": 2403,
+				"buffer_size": 4170,
 				"line_ending": "Windows"
 			}
 		},
@@ -251,15 +259,23 @@
 			"file": "templates/homepage.html",
 			"settings":
 			{
-				"buffer_size": 5819,
+				"buffer_size": 5781,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "templates/register.html",
+			"file": "templates/task.html",
 			"settings":
 			{
-				"buffer_size": 5844,
+				"buffer_size": 6052,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "templates/edittask.html",
+			"settings":
+			{
+				"buffer_size": 6455,
 				"line_ending": "Windows"
 			}
 		},
@@ -267,7 +283,7 @@
 			"file": "models/taskModel.py",
 			"settings":
 			{
-				"buffer_size": 334,
+				"buffer_size": 399,
 				"line_ending": "Windows"
 			}
 		},
@@ -275,23 +291,7 @@
 			"file": "css/main.css",
 			"settings":
 			{
-				"buffer_size": 1054,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "templates/newtask.html",
-			"settings":
-			{
-				"buffer_size": 5988,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "templates/index.html",
-			"settings":
-			{
-				"buffer_size": 5722,
+				"buffer_size": 1466,
 				"line_ending": "Unix"
 			}
 		}
@@ -320,19 +320,21 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Janyu/Documents/tasksapp/utils.py",
+		"/C/Users/Janyu/Documents/tasksapp/templates/index.html",
+		"/C/Users/Janyu/Documents/tasksapp/templates/newtask.html",
+		"/C/Users/Janyu/Documents/tasksapp/css/main.css",
+		"/C/Users/Janyu/Documents/tasksapp/templates/register.html",
+		"/C/Users/Janyu/Documents/tasksapp/app.yaml",
+		"/C/Users/Janyu/Documents/tasksapp/models/userModel.py",
 		"/C/Users/Janyu/Documents/tasksapp/docs/index.html",
 		"/C/Users/Janyu/Documents/tasksapp/initializr/index.html",
 		"/C/Users/Janyu/Documents/tasksapp/task.py",
-		"/C/Users/Janyu/Documents/tasksapp/app.yaml",
 		"/C/Users/Janyu/Documents/tasksapp/models/user.py",
 		"/C/Users/Janyu/Documents/tasksapp/user.py",
 		"/C/Users/Janyu/Documents/tasksapp/models/__init__.py",
 		"/C/Users/Janyu/Documents/tasksapp/models/_init_.py",
 		"/C/Users/Janyu/Documents/tasksapp/docs/examples/hero.html",
-		"/C/Users/Janyu/Documents/tasksapp/templates/index.html",
-		"/C/Users/Janyu/Documents/tasksapp/templates/register.html",
-		"/C/Users/Janyu/Documents/tasksapp/utils.py",
-		"/C/Users/Janyu/Documents/tasksapp/css/main.css",
 		"/C/Users/Janyu/Documents/tasksapp/css/bootstrap.css",
 		"/C/Users/Janyu/Documents/tasksapp/css/bootstrap.min.css",
 		"/C/Users/Janyu/Documents/tasksapp/css/bootstrap-responsive.css",
@@ -392,9 +394,13 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
+			"get",
+			"userTask",
+			"User",
+			"user",
 			"task.",
 			"user.User",
 			"models.user",
@@ -445,6 +451,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"fields.userTask",
 			"taskModel",
 			"userModel.User",
 			"user",
@@ -476,15 +483,15 @@
 					"file": "main.py",
 					"settings":
 					{
-						"buffer_size": 12130,
+						"buffer_size": 12004,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2668,
-								2729
+								2867,
+								2867
 							]
 						],
 						"settings":
@@ -504,15 +511,15 @@
 					"file": "homepage.py",
 					"settings":
 					{
-						"buffer_size": 2403,
+						"buffer_size": 4170,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2145,
-								2145
+								3578,
+								3578
 							]
 						],
 						"settings":
@@ -523,7 +530,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 375.0,
+						"translation.y": 1114.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -533,15 +540,15 @@
 					"file": "templates/homepage.html",
 					"settings":
 					{
-						"buffer_size": 5819,
+						"buffer_size": 5781,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3303,
-								3303
+								4429,
+								4429
 							]
 						],
 						"settings":
@@ -551,53 +558,82 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 706.0,
+						"translation.y": 675.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "templates/register.html",
+					"file": "templates/task.html",
 					"settings":
 					{
-						"buffer_size": 5844,
+						"buffer_size": 6052,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								4613,
+								4722
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 842.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "models/taskModel.py",
+					"file": "templates/edittask.html",
 					"settings":
 					{
-						"buffer_size": 334,
+						"buffer_size": 6455,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								3351,
+								2762
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 810.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "models/taskModel.py",
+					"settings":
+					{
+						"buffer_size": 399,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								297,
+								297
 							]
 						],
 						"settings":
@@ -611,19 +647,19 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 6,
 					"file": "css/main.css",
 					"settings":
 					{
-						"buffer_size": 1054,
+						"buffer_size": 1466,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1002,
-								1002
+								1045,
+								1045
 							]
 						],
 						"settings":
@@ -631,63 +667,7 @@
 							"syntax": "Packages/CSS/CSS.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "templates/newtask.html",
-					"settings":
-					{
-						"buffer_size": 5988,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4239,
-								4239
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 644.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "templates/index.html",
-					"settings":
-					{
-						"buffer_size": 5722,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 148.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -737,6 +717,30 @@
 		"selected_items":
 		[
 			[
+				"main.c",
+				"css/main.css"
+			],
+			[
+				"main",
+				"main.py"
+			],
+			[
+				"app",
+				"app.yaml"
+			],
+			[
+				"task",
+				"models/taskModel.py"
+			],
+			[
+				"utils",
+				"utils.py"
+			],
+			[
+				"user",
+				"models/userModel.py"
+			],
+			[
 				"index",
 				"templates/index.html"
 			],
@@ -749,36 +753,16 @@
 				"css/main.css"
 			],
 			[
-				"task",
-				"task.py"
-			],
-			[
 				"taskmod",
 				"models/taskModel.py"
-			],
-			[
-				"app",
-				"app.yaml"
 			],
 			[
 				"regi",
 				"templates/register.html"
 			],
 			[
-				"user",
-				"models/user.py"
-			],
-			[
 				"ini",
 				"models/_init_.py"
-			],
-			[
-				"main.c",
-				"css/main.css"
-			],
-			[
-				"main",
-				"main.py"
 			],
 			[
 				"boo",
