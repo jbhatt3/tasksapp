@@ -35,7 +35,8 @@ class HomePageHandler(BaseTaskHandler):
         userId = user.key().id()
         userTasks = self.getTasks(userId)
         fields = {"user":user,
-                  "userTasks":userTasks
+                  "userTasks":userTasks,
+                  "sortMethod": SortMethod
                   }
         self.renderStart("/templates/homepage.html",fields=fields)
 

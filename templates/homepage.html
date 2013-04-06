@@ -70,17 +70,20 @@
                             <input type = "submit" class =" btn btn-small" value ="New Task"></input>
                         </form>
                     </div>                    
-                    <div class = "span2 btn-group">
+                    <div class = "span1 btn-group">
                         <<a href="" class="btn btn-small dropdown-toggle" data-toggle="dropdown">Sort Tasks<span class="caret"></span></a>                         
                         <ul class="dropdown-menu" role ="menu" aria-labelledby="dropdownMenu">
                             <li class = "nav-header">Sorty by Priotiy</li>
                             <li><a href="/homepage/sort/priority-asc">Ascending</a></li>
                             <li><a href="/homepage/sort/priority-dsc">Descending</a></li>
-                            <hr>
+                            <li class="divider"></li>
                             <li class = "nav-header">Sort by Due Date</li>
                             <li><a href="/homepage/sort/duedate-asc">Ascending</a></li>
                             <li><a href="/homepage/sort/duedate-dsc">Descending</a></li>
                         </ul>
+                    </div>
+                    <div class ="span4">
+                        Sorting By:{{fields.sortMethod}}
                     </div>
                 </div>
             </div> 
@@ -91,16 +94,18 @@
                         {%if fields.userTasks:%}
                             {%for t in fields.userTasks.run()%}
                                 <li class = "task">
-                                    <a href ="/homepage/task/{{t.key().id()}}"<h4><strong> Task Title: {{t.title}}</strong> Due: 
+                                    <a href ="/homepage/task/{{t.key().id()}}"><strong> Task Title: {{t.title}}</strong> 
+                                        Due: 
                                         {%if t.fixedDueDate != False:%}
                                             {{t.fixedDueDate}}
                                         {%else:%}
                                             {{t.dueDate}}
-                                        {%endif%}</h4></a>
-                                    <br />
-                                    <form action = "/homepage/deltask" method = "post">
+                                        {%endif%}
+                                        Priority: {{t.priority}}
+                                    </h4></a> 
+                                    <form action = "/homepage/deltask" method = "post" class ="pull-right">
                                         <input class = "hide" name = "k" value ="{{t.key()}}"></input>
-                                        <input type = "submit"  value ="Delete Task" class = "btn btn-mini"></input>
+                                        <button type = "submit"  value ="" class = "btn btn-mini">Delete Task</button>
                                     </form>
                                 </li>
                             {%endfor%}
@@ -115,7 +120,7 @@
         </div><!-- /container -->
 
 
-        
+
 <!--================================================================================================
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="..js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
