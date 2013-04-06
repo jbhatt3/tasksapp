@@ -22,7 +22,6 @@ class BaseTaskHandler(main.BaseHandler):
     def getTasks(self, userId):
         tasksQuery = taskModel.Task.all()
         tasksQuery = tasksQuery.ancestor(taskModel.taskAncestorKey(userId))
-        self.write(SortMethod)
         tasksQuery = tasksQuery.order(SortMethod)
         return tasksQuery
 
