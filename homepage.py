@@ -109,7 +109,9 @@ class UpdateTaskHandler(HomePageHandler):
         task.put()
         self.redirect('/homepage')
 
-
+class SortTasksHandler(HomePageHandler):
+    def get(self,sortFunction):
+        self.write(sortFunction)
 
 
 app = webapp2.WSGIApplication([('/homepage',HomePageHandler),
@@ -117,5 +119,6 @@ app = webapp2.WSGIApplication([('/homepage',HomePageHandler),
                                 ('/homepage/deltask',DeleteTaskHandler),
                                 ('/homepage/task/(\d+)',TaskPageHandler),
                                 ('/homepage/edittask',EditTaskHandler),
-                                ('/homepage/updatetask',UpdateTaskHandler)
+                                ('/homepage/updatetask',UpdateTaskHandler),
+                                ('/homepage/sort/((?:priority|duedate)-(?:asc|dsc))', SortTasksHandler)
                                 ], debug=True)
