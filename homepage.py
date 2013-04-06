@@ -16,12 +16,14 @@ from google.appengine.ext import db
 template_dir = os.path.join(os.path.dirname(__file__))
 jinja_environment = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
                                autoescape = True)
+SortMethod ="dateCreated"
 
 class BaseTaskHandler(main.BaseHandler):
     def getTasks(self, userId):
         tasksQuery = taskModel.Task.all()
         tasksQuery = tasksQuery.ancestor(taskModel.taskAncestorKey(userId))
-        tasksQuery = tasksQuery.order('dateCreated')
+        self.write(SortMethod)
+        tasksQuery = tasksQuery.order(SortMethod)
         return tasksQuery
 
 class HomePageHandler(BaseTaskHandler):
@@ -110,8 +112,19 @@ class UpdateTaskHandler(HomePageHandler):
         self.redirect('/homepage')
 
 class SortTasksHandler(HomePageHandler):
-    def get(self,sortFunction):
-        self.write(sortFunction)
+    def get(self,sortFunct_str):
+        sortFunct = sortFunct_str.partition('-')
+        if sortFunct[0] == "duedate":
+            sortby = "dueDate"
+        else:
+            sortby = "priority"
+        if(sortFunct[2]!="asc"):
+            sortby = "-"+sortby
+        global SortMethod
+        SortMethod = sortby
+        self.redirect('/homepage')
+
+
 
 
 app = webapp2.WSGIApplication([('/homepage',HomePageHandler),

@@ -14,3 +14,25 @@ indexes:
   ancestor: yes
   properties:
   - name: dateCreated
+
+- kind: Task
+  ancestor: yes
+  properties:
+  - name: dueDate
+
+- kind: Task
+  ancestor: yes
+  properties:
+  - name: dueDate
+    direction: desc
+
+- kind: Task
+  ancestor: yes
+  properties:
+  - name: priority
+
+- kind: Task
+  ancestor: yes
+  properties:
+  - name: priority
+    direction: desc
