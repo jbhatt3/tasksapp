@@ -39,6 +39,13 @@ body {
 	padding: 7px 9px;
 }
 
+body{
+  background-color: pink
+}
+
+.hero-unit{
+  background-color: rgb(247, 204, 204);
+}  
 
 ul.task {
 	list-style-type: none;
