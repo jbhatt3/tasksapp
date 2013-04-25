@@ -152,9 +152,9 @@ class FormHandler(BaseHandler):
         if matchingUsers.count() == 1:
             passHashed = matchingUsers.get().passHashed
             passValid = self.validatePassword(password,passHashed)
-            userSearch = {'userFound':True,
-                          'user':matchingUsers.get(),
-                          'userId': matchingUsers.get().key().id()}
+            if passValid:
+                userSearch = {'userFound':True,
+                              'userId': matchingUsers.get().key().id()}
         return userSearch
 
 
@@ -189,8 +189,8 @@ class LoginHandler(FormHandler):
             validation['errors'] = errors
             return validation    
 
-        user = self.validateUser(fields,password)
-        if not user['userFound']:
+        userQuery = self.validateUser(fields,password)
+        if not userQuery['userFound']:
             errors['error_db'] = "Invalid email/password"
             validation['valid'] = False
             validation['errors'] = errors
@@ -198,7 +198,8 @@ class LoginHandler(FormHandler):
 
 
         validation['errors'] = errors
-        validation['fields']['userId'] = user['userId']
+        validation['fields']['userId'] = userQuery['userId']
+
         return validation 
 
     def get(self):
@@ -213,6 +214,7 @@ class LoginHandler(FormHandler):
         else:
             self.createSessionCookie(validation['fields']['userId'])
             self.redirect('/')
+
 
 class LogoutHandler(FormHandler):
 
